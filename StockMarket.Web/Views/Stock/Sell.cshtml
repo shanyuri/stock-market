@@ -1,0 +1,98 @@
+﻿@model StockMarket.Core.Models.ViewModels.SellStockViewModel
+@using StockMarket.Infrastructure.Enum;
+
+@{
+    ViewBag.Title = "Sell Stock";
+    string sellStockStatusHtml = "";
+}
+
+@if (ViewBag.SellStockStatus != null)
+{
+    StockSellStatus sellStockStatus = ViewBag.SellStockStatus;
+
+    switch (sellStockStatus)
+    {
+        case StockSellStatus.MarketIsClosed:
+            sellStockStatusHtml = "Market is closed now. Please try again later.";
+            break;
+        case StockSellStatus.UserHasNotEnoughStocks:
+            sellStockStatusHtml = "You don't have enough stocks to sell.";
+            break;
+        case StockSellStatus.StockValueDataHaveChanged:
+            sellStockStatusHtml = "Stock value data have changed.";
+            break;
+        case StockSellStatus.Unknown:
+            sellStockStatusHtml = "Unknown error occurred and you cannot sell this stock.";
+            break;
+    }
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        @if (!string.IsNullOrEmpty(sellStockStatusHtml))
+        {
+            <p class="alert alert-danger">
+                @sellStockStatusHtml
+            </p>
+        }
+        <h3>Sell Stock</h3>
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Code)</th>
+                    <th>@Html.DisplayNameFor(model => model.Unit)</th>
+                    <th>@Html.DisplayNameFor(model => model.Price) [PLN]</th>
+                    <th>@Html.DisplayNameFor(model => model.AmountAvailable)</th>
+                    <th>@Html.DisplayNameFor(model => model.PublicationDate)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Name)</td>
+                    <td>@Html.DisplayFor(model => model.Code)</td>
+                    <td>@Html.DisplayFor(model => model.Unit)</td>
+                    <td>@Html.DisplayFor(model => model.Price)</td>
+                    <td>@Html.DisplayFor(model => model.AmountAvailable)</td>
+                    <td>@Html.DisplayFor(model => model.PublicationDate)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        @using (Html.BeginForm("Sell", "Stock", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken();
+
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+            @Html.HiddenFor(model => model.Name)
+            @Html.HiddenFor(model => model.Code)
+            @Html.HiddenFor(model => model.Unit)
+            @Html.HiddenFor(model => model.Price)
+            @Html.HiddenFor(model => model.AmountAvailable)
+            @Html.HiddenFor(model => model.PublicationDate)
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AmountToSell, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.AmountToSell, new { htmlAttibutes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AmountToSell, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Go to the next step" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+        <div>
+            @Html.ActionLink("Back to the Market Dashboard", "Dashboard", "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-sm btn-default" })
+        </div>
+    </div>
+</div>

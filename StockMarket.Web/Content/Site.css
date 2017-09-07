@@ -1,0 +1,132 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+/* own styles */
+hr {
+    margin: 0;
+    border-top: 1px solid #dddddd;
+}
+
+.navbar-header a {
+    margin-left: 15px;
+}
+
+.body-content {
+    margin-top: 20px;
+}
+
+div.page-panel {
+    border: 1px solid lightgray;
+    margin-top: 5px;
+}
+
+div.page-panel h4 {
+    padding-left: 15px;
+}
+
+div.page-panel div p {
+    /*border-top: 1px solid #dddddd;*/
+    padding: 20px 15px 10px 15px;
+}
+
+table th {
+    background-color: #eeeeee;
+}
+/*table tr,
+table th {
+border-width: 1px 0 1px 0 !important;
+border-style: solid !important;
+border-color: #dddddd !important;
+}
+table td {
+border: 1px solid red;
+border-collapse: collapse;
+}*/
+table {
+    border-collapse: collapse;
+    border-style: hidden;
+    border-bottom: 1px solid #dddddd;
+}
+
+table td,
+table th {
+    border: 1px solid #dddddd;
+}
+
+footer {
+    margin-top: 20px;
+    color: lightgray;
+    font-style: italic;
+}
+
+/* form login and register */
+.form-sign {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-sign .form-sign-heading,
+.form-sign .checkbox {
+    margin-bottom: 20px;
+    font-weight: normal;
+}
+
+.form-sign .checkbox input[type="checkbox"] {
+    margin-left: 0 !important;
+}
+
+.form-sign .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-sign .form-control:focus {
+    z-index: 2;
+}
+
+.form-sign input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-sign input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+/* end: form login and register */
+
+
+.hidden {
+    display: none;
+}

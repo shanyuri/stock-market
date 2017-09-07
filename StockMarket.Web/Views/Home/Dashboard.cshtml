@@ -1,0 +1,52 @@
+﻿@model StockMarket.Core.Models.ViewModels.UserWalletViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+
+    string className = "";
+    if (!string.IsNullOrEmpty(ViewBag.MessageType))
+    {
+        string messageType = ViewBag.MessageType;
+        messageType = messageType.ToLowerInvariant();
+        switch (messageType)
+        {
+            case "success":
+                className = "alert alert-success";
+                break;
+            case "error":
+                className = "alert alert-danger";
+                break;
+            default:
+                className = "alert alert-default";
+                break;
+        }
+    }
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div id="connStatus" class="alert text-center">
+        </div>
+        @if (!string.IsNullOrEmpty(ViewBag.Message))
+        {
+            <div>
+                <p class="@className">@ViewBag.Message</p>
+            </div>
+        }
+    </div>
+
+    @Html.Partial("_StockPrices")
+    @Html.Partial("_UserWallet", Model) 
+    @Html.Partial("_StockChart")
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="~/SignalR/hubs"></script>
+    <script src="~/Scripts/knockout-3.4.2.debug.js"></script>
+    <script src="~/Scripts/dateformat.min.js"></script>
+    <script src="~/Scripts/MyScripts/client.js"></script>
+
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="~/Scripts/MyScripts/clientChart.js"></script>
+}

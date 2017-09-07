@@ -1,0 +1,72 @@
+﻿@model StockMarket.Core.Models.ViewModels.UserWalletViewModel
+
+<div class="col-xs-12 col-sm-6">
+    @if (User.Identity.IsAuthenticated == false)
+    {
+        <p class="alert alert-danger">Please login to see your wallet.</p>
+    }
+    else
+    {
+        <div class="page-panel">
+            <div>
+                <h4>My wallet</h4>
+                @if (Model == null || Model.userStocks == null || Model.userStocks.Count() == 0)
+                {
+                    <hr />
+                    <p class="alert text-danger">You don't own any stock yet.</p>
+                }
+                else
+                {
+                    <table id="walletTable" class="table table-condensed">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.userStocks.ElementAt(0).Name)</th>
+                            <th>@Html.DisplayNameFor(model => model.userStocks.ElementAt(0).Price)</th>
+                            <th>@Html.DisplayNameFor(model => model.userStocks.ElementAt(0).Unit)</th>
+                            <th>@Html.DisplayNameFor(model => model.userStocks.ElementAt(0).Amount)</th>
+                            <th>@Html.DisplayNameFor(model => model.userStocks.ElementAt(0).TotalValue)</th>
+                            <th>Actions</th>
+                        </tr>
+
+                        @foreach (var userStock in Model.userStocks)
+                        {
+                            <tr data-name="stock-code" data-value="@userStock.Code">
+                                <td data-name="name">@userStock.Name</td>
+                                <td data-name="price">@userStock.Price</td>
+                                <td data-name="unit">@userStock.Unit</td>
+                                <td data-name="amount">@userStock.Amount</td>
+                                <td data-name="total-value">
+                                    @if (userStock.Unit > 0)
+                                    {
+                                        @Html.Raw(String.Format("{0:N4}", userStock.Amount / userStock.Unit * userStock.Price))
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("0")
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @Html.ActionLink("Sell", "sell", "stock", new { stockCode = userStock.Code.ToLowerInvariant() }, new { @class = "btn btn-xs btn-default" })
+                                </td>
+                            </tr>
+                        }
+                        @*<tr data-name="stock-code" data-value="stock-code-here">
+                                   <td data-name="name"></td>
+                                   <td data-name="unit"></td>
+                                   <td data-name="amount"></td>
+                                   <td data-name="value"></td>
+                                   <td class="text-center">
+                                       <input type="submit" class="btn btn-xs btn-default" value="Sell" />
+                                   </td>
+                            </tr>*@
+                    </table>
+                }
+                <hr />
+                <div>
+                    <p>
+                        Available money: <b>@String.Format("{0:N4}", Model.Money) PLN </b>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
