@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StockMarket.Core.Models
 {
-    [NotMapped]
     public class StockJSON
     {
         public string Name { get; set; }
